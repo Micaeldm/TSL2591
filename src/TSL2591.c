@@ -110,7 +110,7 @@ UBYTE TSL2591_Get_IntegralTime() {
     ************************************************************/
     control = TSL2591_Read_Byte(CONTROL_REGISTER);
     TSL2591_Time = control & 0x07;
-    // printf("TSL2591_Time = %d \r\n",TSL2591_Time);
+
     return control & 0x07; // 0b00000111
 }
 
@@ -139,26 +139,11 @@ Info:
 ******************************************************************************/
 UWORD TSL2591_Read_Channel0(void) {
 
-    /// UWORD valor1=0;
-    // UWORD valor2=0;
-    // UWORD total=0;
-    // valor1=TSL2591_Read_Word(CHAN0_LOW);
-    // valor2=TSL2591_Read_Word(CHAN0_HIGH);
-    //  printf("Lux_channel0_Low = %d\r\n",valor1);
-    // printf("Lux_channel0_high= %d\r\n",valor2);
-    // total=valor1 | valor2;
     return TSL2591_Read_Word(CHAN0_LOW);
 }
 
 UWORD TSL2591_Read_Channel1(void) {
-    // UWORD valor1=0;
-    // UWORD valor2=0;
-    // UWORD total=0;
-    // valor1=TSL2591_Read_Word(CHAN1_LOW);
-    // valor2=TSL2591_Read_Word(CHAN1_HIGH);
-    // printf("Lux_channel1_Low = %d\r\n",valor1);
-    // printf("Lux_channel1_high= %d\r\n",valor2);
-    // total=valor1 | valor2;
+
     return TSL2591_Read_Word(CHAN1_LOW);
 }
 
@@ -171,7 +156,7 @@ UBYTE TSL2591_Init(void) {
     DEV_I2C_Init(TSL2591_ADDRESS); // 8-bit address
     printf("ID = 0x%X \r\n", TSL2591_Read_Byte(ID_REGISTER));
     TSL2591_Enable();
-    // TSL2591_Set_Gain(MEDIUM_AGAIN);//25X GAIN
+
     TSL2591_Set_Gain(LOW_AGAIN);           // 1X GAIN
     TSL2591_Set_IntegralTime(ATIME_200MS); // 200ms Integration time
     TSL2591_Get_IntegralTime();
@@ -201,7 +186,7 @@ UWORD TSL2591_Read_Lux(void) {
 
     channel_0 = TSL2591_Read_Channel0();
     channel_1 = TSL2591_Read_Channel1();
-   
+
     TSL2591_Disable();
 
     TSL2591_Enable();
@@ -249,19 +234,8 @@ UWORD TSL2591_Read_Lux(void) {
 
     UWORD lux1, lux2 = 0;
 
-    // printf("again %f\r\n",again);
-    // printf("time %d\r\n",atime);
-    //  printf("LUX_DF %f\r\n",LUX_DF);
     Cpl = (atime * again) / LUX_DF;
     lux1 = (int)((channel_0 - (2 * channel_1)) / Cpl);
-    // lux1 = ((channel_0 + (2 * channel_1)));
-    // lux2 = ((0.6 * channel_0) - (channel_1)) / Cpl;
-
-    // lux1 = (((float)channel_0 - (float)channel_1)) * (1.0F - ((float)channel_1  /
-    // (float)channel_0 )) / Cpl;
-    // This is a two segment lux equation where the first
-    // segment (Lux1) covers fluorescent and incandescent light
-    // and the second segment (Lux2) covers dimmed incandescent light
 
     return lux1;
 

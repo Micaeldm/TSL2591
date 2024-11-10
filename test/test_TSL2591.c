@@ -3,7 +3,7 @@
 #include "TSL2591.h"
 
 /**
- * @brief
+ * @brief Se lee el canal 0
  *
  */
 
@@ -15,7 +15,7 @@ void test_TSL2591_ReadChannel0(void) {
     TEST_ASSERT_EQUAL_UINT16(5, valor);
 }
 /**
- * @brief
+ * @brief Se lee el canal 1
  *
  */
 void test_TSL2591_ReadChannel1(void) {
@@ -26,7 +26,7 @@ void test_TSL2591_ReadChannel1(void) {
     TEST_ASSERT_EQUAL_UINT16(5, valor);
 }
 /**
- * @brief
+ * @brief Se inicializa el modulo
  *
  */
 void test_TSL2591_DevModuleInit(void) {
@@ -37,7 +37,7 @@ void test_TSL2591_DevModuleInit(void) {
     TEST_ASSERT_EQUAL_UINT16(0, valor);
 }
 /**
- * @brief
+ * @brief Se habilita Enable  antes de  enviar datos al sensor
  *
  */
 void test_TSL2591_Enable(void) {
@@ -47,7 +47,7 @@ void test_TSL2591_Enable(void) {
     TSL2591_Enable();
 }
 /**
- * @brief
+ * @brief Se deshabilita una vez enviado los datos al sensor
  *
  */
 void test_TSL2591_Disable(void) {
